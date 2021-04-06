@@ -15,7 +15,7 @@ return [
 
     'defaults' => [
         'guard' => 'web',
-        'passwords' => 'users',
+        'passwords' => 'karyawan',
     ],
 
     /*
@@ -38,12 +38,12 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'karyawan',
         ],
 
         'api' => [
             'driver' => 'passport',
-            'provider' => 'users',
+            'provider' => 'karyawan',
             'hash' => false,
         ],
     ],
@@ -66,9 +66,9 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'karyawan' => [
             'driver' => 'eloquent',
-            'model' => App\User::class,
+            'model' => App\Karyawan::class,
         ],
 
         // 'users' => [

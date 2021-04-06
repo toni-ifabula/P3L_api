@@ -6,10 +6,38 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Validator;
+use Illuminate\Support\Facades\Hash;
+use Auth;
 use App\Karyawan;
 
 class KaryawanController extends Controller
 {
+    // LOGIN
+    public function login(Request $request){
+        $loginData = $request->all();
+        $validate = Validator::make($loginData,[
+            'email' => 'required|email:rfc,dns',
+            'password' => 'required'
+        ]);
+
+        if($validate->fails())
+            return response(['message' => $validate->errors()],400);
+
+        if(!Auth::attempt($loginData))
+            return response(['message' => 'Invalid Credentials'],401);
+
+        $karyawan = Auth::user();
+        $token = $karyawan->createToken('Authentication Token')->accessToken;
+
+        return response([
+            'message' => 'Login Success',
+            'user' => $karyawan,
+            'token_type' => 'Bearer',
+            'access_token' => $token
+        ]);
+
+    }
+
     // SHOW ALL
     public function index(){
         $karyawan = Karyawan::all();
@@ -33,10 +61,10 @@ class KaryawanController extends Controller
         $validate = Validator::make($storeData, [
             'ID_ROLE' => 'required|numeric',
             'NAMA_KARYAWAN' => 'required|alpha',
-            'PASSWORD_KARYAWAN' => 'required',
+            'password' => 'required',
             'JENIS_KELAMIN_KARYAWAN' => 'required|alpha_dash',
             'TELEPON_KARYAWAN' => 'required|numeric',
-            'EMAIL_KARYAWAN' => 'required|email:rfc,dns|unique:karyawan',
+            'email' => 'required|email:rfc,dns|unique:karyawan',
             'TANGGAL_GABUNG_KARYAWAN' => 'required|date_format:Y-m-d',
             'STATUS_KARYAWAN' => 'required|alpha'
         ]);
@@ -65,10 +93,10 @@ class KaryawanController extends Controller
         $validate = Validator::make($updateData, [
             'ID_ROLE' => 'required|numeric',
             'NAMA_KARYAWAN' => 'required|alpha',
-            'PASSWORD_KARYAWAN' => 'required',
+            'password' => 'required',
             'JENIS_KELAMIN_KARYAWAN' => 'required|alpha_dash',
             'TELEPON_KARYAWAN' => 'required|numeric',
-            'EMAIL_KARYAWAN' => ['required', 'email:rfc,dns', Rule::unique('karyawan')->ignore($karyawan)],
+            'email' => ['required', 'email:rfc,dns', Rule::unique('karyawan')->ignore($karyawan)],
             'TANGGAL_GABUNG_KARYAWAN' => 'required|date_format:Y-m-d',
             'STATUS_KARYAWAN' => 'required|alpha'
         ]);
@@ -78,10 +106,10 @@ class KaryawanController extends Controller
         
         $karyawan->ID_ROLE = $updateData['ID_ROLE'];
         $karyawan->NAMA_KARYAWAN = $updateData['NAMA_KARYAWAN'];
-        $karyawan->PASSWORD_KARYAWAN = $updateData['PASSWORD_KARYAWAN'];
+        $karyawan->password = $updateData['password'];
         $karyawan->JENIS_KELAMIN_KARYAWAN = $updateData['JENIS_KELAMIN_KARYAWAN'];
         $karyawan->TELEPON_KARYAWAN = $updateData['TELEPON_KARYAWAN'];
-        $karyawan->EMAIL_KARYAWAN = $updateData['EMAIL_KARYAWAN'];
+        $karyawan->email = $updateData['email'];
         $karyawan->TANGGAL_GABUNG_KARYAWAN = $updateData['TANGGAL_GABUNG_KARYAWAN'];
         $karyawan->STATUS_KARYAWAN = $updateData['STATUS_KARYAWAN'];
 

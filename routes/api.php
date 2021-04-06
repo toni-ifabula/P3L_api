@@ -14,25 +14,30 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
+// GET CURRENT USER DETAILS
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+    return $request->user();
+});
 
-Route::get('role', 'Api\RoleController@index');
-Route::post('role', 'Api\RoleController@store');
-Route::put('role/{id}', 'Api\RoleController@update');
+Route::post('login', 'Api\KaryawanController@login');
 
-Route::get('karyawan', 'Api\KaryawanController@index');
-Route::post('karyawan', 'Api\KaryawanController@store');
-Route::put('karyawan/{id}', 'Api\KaryawanController@update');
-Route::put('resignKaryawan/{id}', 'Api\KaryawanController@resign');
+Route::group(['middleware' => 'auth:api'], function(){
+    Route::get('role', 'Api\RoleController@index');
+    Route::post('role', 'Api\RoleController@store');
+    Route::put('role/{id}', 'Api\RoleController@update');
 
-Route::get('meja', 'Api\MejaController@index');
-Route::post('meja', 'Api\MejaController@store');
-Route::put('meja/{id}', 'Api\MejaController@update');
-Route::delete('meja/{id}', 'Api\MejaController@destroy');
+    Route::get('karyawan', 'Api\KaryawanController@index');
+    Route::post('karyawan', 'Api\KaryawanController@store');
+    Route::put('karyawan/{id}', 'Api\KaryawanController@update');
+    Route::put('resignKaryawan/{id}', 'Api\KaryawanController@resign');
 
-Route::get('customer', 'Api\CustomerController@index');
-Route::post('customer', 'Api\CustomerController@store');
-Route::put('customer/{id}', 'Api\CustomerController@update');
-Route::delete('customer/{id}', 'Api\CustomerController@destroy');
+    Route::get('meja', 'Api\MejaController@index');
+    Route::post('meja', 'Api\MejaController@store');
+    Route::put('meja/{id}', 'Api\MejaController@update');
+    Route::delete('meja/{id}', 'Api\MejaController@destroy');
+
+    Route::get('customer', 'Api\CustomerController@index');
+    Route::post('customer', 'Api\CustomerController@store');
+    Route::put('customer/{id}', 'Api\CustomerController@update');
+    Route::delete('customer/{id}', 'Api\CustomerController@destroy');
+});
