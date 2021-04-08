@@ -50,4 +50,14 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::post('reservasi', 'Api\ReservasiController@store');
     Route::put('reservasi/{id}', 'Api\ReservasiController@update');
     Route::delete('reservasi/{id}', 'Api\ReservasiController@destroy');
+
+    Route::get('detailStok', 'Api\DetailStokController@index');
+    Route::post('detailStok', 'Api\DetailStokController@store');
+    Route::put('detailStok/{id}', 'Api\DetailStokController@update');
+    Route::delete('detailStok/{id}', 'Api\DetailStokController@destroy');
+
+    Route::get('menu', 'Api\MenuController@index');
+    Route::post('menu', 'Api\MenuController@store');
+    Route::put('menu/{id}', 'Api\MenuController@update');
+    Route::delete('menu/{id}', 'Api\MenuController@destroy');
 });

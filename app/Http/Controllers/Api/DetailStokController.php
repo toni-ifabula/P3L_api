@@ -6,18 +6,18 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Validator;
-use App\StokBahan;
+use App\DetailStok;
 
-class StokBahanController extends Controller
+class DetailStokController extends Controller
 {
     // SHOW ALL
     public function index(){
-        $stok_bahan = StokBahan::all();
+        $detail_stok = DetailStok::all();
 
-        if(count($stok_bahan) > 0){
+        if(count($detail_stok) > 0){
             return response([
                 'message' => 'Retrieve All Success',
-                'data' => $stok_bahan
+                'data' => $detail_stok
             ], 200);
         }
 
@@ -31,25 +31,33 @@ class StokBahanController extends Controller
     public function store(Request $request){
         $storeData = $request->all();
         $validate = Validator::make($storeData, [
-            'NAMA_STOK' => 'required|alpha',
-            'UNIT_STOK' => 'required|alpha',
-            'HARGA_STOK' => 'required|numeric'
+            'ID_STOK' => 'required|numeric',
+            'TANGGAL_MASUK_STOK' => 'required|date_format:Y-m-d',
+            'INCOMING_STOK' => 'required|numeric',
+            'REMAINING_STOK' => 'nullable|numeric',
+            'WASTE_STOK' => 'nullable|numeric'
         ]);
 
         if($validate->fails())
             return response(['message' => $validate->errors()], 400);
         
-        $stok_bahan = StokBahan::create($storeData);
+        $detail_stok = DetailStok::create($storeData);
         return response([
             'message' => 'Create Stok Bahan Success',
-            'data' => $stok_bahan,
+            'data' => $detail_stok,
         ], 200);
     }
 
+    // CALCULATE REMAINING
+
+
+    // CALCULATE WASTE
+
+    
     // UPDATE
     public function update(Request $request, $id){
-        $stok_bahan = StokBahan::find($id);
-        if(is_null($stok_bahan)){
+        $detail_stok = DetailStok::find($id);
+        if(is_null($detail_stok)){
             return response([
                 'message' => 'Stok Bahan Not Found',
                 'data' => null
@@ -58,22 +66,28 @@ class StokBahanController extends Controller
 
         $updateData = $request->all();
         $validate = Validator::make($updateData, [
-            'NAMA_STOK' => 'required|alpha',
-            'UNIT_STOK' => 'required|alpha',
-            'HARGA_STOK' => 'required'
+            'ID_STOK' => 'required|numeric',
+            'TANGGAL_MASUK_STOK' => 'required|date_format:Y-m-d',
+            'INCOMING_STOK' => 'required|numeric',
+            'REMAINING_STOK' => 'nullable|numeric',
+            'WASTE_STOK' => 'nullable|numeric'
         ]);
 
         if($validate->fails())
             return response(['message' => $validate->errors()], 400);
         
-        $stok_bahan->NAMA_STOK = $updateData['NAMA_STOK'];
-        $stok_bahan->UNIT_STOK = $updateData['UNIT_STOK'];
-        $stok_bahan->HARGA_STOK = $updateData['HARGA_STOK'];
+        $detail_stok->ID_STOK = $updateData['ID_STOK'];
+        $detail_stok->TANGGAL_MASUK_STOK = $updateData['TANGGAL_MASUK_STOK'];
+        $detail_stok->INCOMING_STOK = $updateData['INCOMING_STOK'];
+        if(!empty($updateData['REMAINING_STOK']))
+            $detail_stok->REMAINING_STOK = $updateData['REMAINING_STOK'];
+        if(!empty($updateData['WASTE_STOK']))
+            $detail_stok->WASTE_STOK = $updateData['WASTE_STOK'];
 
-        if($stok_bahan->save()){
+        if($detail_stok->save()){
             return response([
                 'message' => 'Update Stok Bahan Success',
-                'data' => $stok_bahan,
+                'data' => $detail_stok,
             ], 200);
         }
         
@@ -85,19 +99,19 @@ class StokBahanController extends Controller
 
     // DELETE
     public function destroy($id){
-        $stok_bahan = StokBahan::find($id);
+        $detail_stok = DetailStok::find($id);
 
-        if(is_null($stok_bahan)){
+        if(is_null($detail_stok)){
             return response([
                 'message' => 'Stok Bahan Not Found',
                 'data' => null
             ], 404);
         }
 
-        if($stok_bahan->delete()){
+        if($detail_stok->delete()){
             return response([
                 'message' => 'Delete Stok Bahan Success',
-                'data' => $stok_bahan
+                'data' => $detail_stok
             ], 200);
         }
 
