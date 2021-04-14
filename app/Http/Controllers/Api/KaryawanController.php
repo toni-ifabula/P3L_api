@@ -72,6 +72,7 @@ class KaryawanController extends Controller
         if($validate->fails())
             return response(['message' => $validate->errors()], 400);
         
+        $storeData['password'] = bcrypt($request->password);
         $karyawan = Karyawan::create($storeData);
         return response([
             'message' => 'Create Karyawan Success',
