@@ -31,7 +31,7 @@ class RoleController extends Controller
     public function store(Request $request){
         $storeData = $request->all();
         $validate = Validator::make($storeData, [
-            'NAMA_ROLE' => 'required|alpha',
+            'NAMA_ROLE' => 'required',
         ]);
 
         if($validate->fails())
@@ -56,7 +56,7 @@ class RoleController extends Controller
 
         $updateData = $request->all();
         $validate = Validator::make($updateData, [
-            'NAMA_ROLE' => 'required|alpha'
+            'NAMA_ROLE' => 'required'
         ]);
 
         if($validate->fails())

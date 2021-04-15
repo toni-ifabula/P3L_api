@@ -33,7 +33,7 @@ class ReservasiController extends Controller
         $validate = Validator::make($storeData, [
             'ID_MEJA' => 'required|numeric',
             'ID_CUSTOMER' => 'required|numeric',
-            'SESI_RESERVASI' => 'required|alpha',
+            'SESI_RESERVASI' => 'required',
             'TANGGAL_RESERVASI' => 'required|date_format:Y-m-d'
         ]);
 
@@ -61,7 +61,7 @@ class ReservasiController extends Controller
         $validate = Validator::make($updateData, [
             'ID_MEJA' => 'required|numeric',
             'ID_CUSTOMER' => 'required|numeric',
-            'SESI_RESERVASI' => 'required|alpha',
+            'SESI_RESERVASI' => 'required',
             'TANGGAL_RESERVASI' => 'required|date_format:Y-m-d'
         ]);
 

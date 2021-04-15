@@ -60,13 +60,13 @@ class KaryawanController extends Controller
         $storeData = $request->all();
         $validate = Validator::make($storeData, [
             'ID_ROLE' => 'required|numeric',
-            'NAMA_KARYAWAN' => 'required|alpha',
+            'NAMA_KARYAWAN' => 'required',
             'password' => 'required',
-            'JENIS_KELAMIN_KARYAWAN' => 'required|alpha_dash',
+            'JENIS_KELAMIN_KARYAWAN' => 'required',
             'TELEPON_KARYAWAN' => 'required|numeric',
             'email' => 'required|email:rfc,dns|unique:karyawan',
             'TANGGAL_GABUNG_KARYAWAN' => 'required|date_format:Y-m-d',
-            'STATUS_KARYAWAN' => 'required|alpha'
+            'STATUS_KARYAWAN' => 'required'
         ]);
 
         if($validate->fails())
@@ -93,13 +93,13 @@ class KaryawanController extends Controller
         $updateData = $request->all();
         $validate = Validator::make($updateData, [
             'ID_ROLE' => 'required|numeric',
-            'NAMA_KARYAWAN' => 'required|alpha',
+            'NAMA_KARYAWAN' => 'required',
             'password' => 'required',
-            'JENIS_KELAMIN_KARYAWAN' => 'required|alpha_dash',
+            'JENIS_KELAMIN_KARYAWAN' => 'required',
             'TELEPON_KARYAWAN' => 'required|numeric',
             'email' => ['required', 'email:rfc,dns', Rule::unique('karyawan')->ignore($karyawan)],
             'TANGGAL_GABUNG_KARYAWAN' => 'required|date_format:Y-m-d',
-            'STATUS_KARYAWAN' => 'required|alpha'
+            'STATUS_KARYAWAN' => 'required'
         ]);
 
         if($validate->fails())

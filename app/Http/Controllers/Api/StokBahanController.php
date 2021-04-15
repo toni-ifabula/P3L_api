@@ -31,8 +31,8 @@ class StokBahanController extends Controller
     public function store(Request $request){
         $storeData = $request->all();
         $validate = Validator::make($storeData, [
-            'NAMA_STOK' => 'required|alpha',
-            'UNIT_STOK' => 'required|alpha',
+            'NAMA_STOK' => 'required',
+            'UNIT_STOK' => 'required',
             'HARGA_STOK' => 'required|numeric'
         ]);
 
@@ -58,8 +58,8 @@ class StokBahanController extends Controller
 
         $updateData = $request->all();
         $validate = Validator::make($updateData, [
-            'NAMA_STOK' => 'required|alpha',
-            'UNIT_STOK' => 'required|alpha',
+            'NAMA_STOK' => 'required',
+            'UNIT_STOK' => 'required',
             'HARGA_STOK' => 'required'
         ]);
 

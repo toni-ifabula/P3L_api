@@ -31,7 +31,7 @@ class CustomerController extends Controller
     public function store(Request $request){
         $storeData = $request->all();
         $validate = Validator::make($storeData, [
-            'NAMA_CUSTOMER' => 'required|alpha',
+            'NAMA_CUSTOMER' => 'required',
             'TELEPON_CUSTOMER' => 'nullable|numeric',
             'EMAIL_CUSTOMER' => 'nullable|email:rfc,dns'
         ]);
@@ -58,7 +58,7 @@ class CustomerController extends Controller
 
         $updateData = $request->all();
         $validate = Validator::make($updateData, [
-            'NAMA_CUSTOMER' => 'required|alpha',
+            'NAMA_CUSTOMER' => 'required',
             'TELEPON_CUSTOMER' => 'nullable|numeric',
             'EMAIL_CUSTOMER' => 'nullable|email:rfc,dns'
         ]);
