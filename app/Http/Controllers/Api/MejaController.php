@@ -23,8 +23,23 @@ class MejaController extends Controller
 
         return response([
             'message' => 'Empty',
-            'daa' => null
+            'data' => null
         ], 404);
+    }
+
+    public function getIDbyNomor($nomor) {
+        $idMeja = Meja::select('ID_MEJA')->where('NOMOR_MEJA', '=', $nomor)->get();
+        if($idMeja->isEmpty()){
+            return response([
+                'message' => 'Meja Not Found',
+                'data' => null
+            ], 404);
+        } else {
+            return response([
+                'message' => 'Meja Found',
+                'data' => $idMeja,
+            ], 200);
+        }
     }
 
     // CREATE

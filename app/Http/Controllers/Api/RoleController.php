@@ -27,6 +27,21 @@ class RoleController extends Controller
         ], 404);
     }
 
+    public function getIDbyNama($nama) {
+        $idRole = Role::select('ID_ROLE')->where('NAMA_ROLE', '=', $nama)->get();
+        if($idRole->isEmpty()){
+            return response([
+                'message' => 'Role Not Found',
+                'data' => null
+            ], 404);
+        } else {
+            return response([
+                'message' => 'Role Found',
+                'data' => $idRole,
+            ], 200);
+        }
+    }
+
     // CREATE
     public function store(Request $request){
         $storeData = $request->all();

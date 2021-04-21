@@ -23,6 +23,7 @@ Route::post('login', 'Api\KaryawanController@login');
 
 Route::group(['middleware' => 'auth:api'], function(){
     Route::get('role', 'Api\RoleController@index');
+    Route::get('IDRole/{nama}', 'Api\RoleController@getIDbyNama');
     Route::post('role', 'Api\RoleController@store');
     Route::put('role/{id}', 'Api\RoleController@update');
 
@@ -32,11 +33,13 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::put('resignKaryawan/{id}', 'Api\KaryawanController@resign');
 
     Route::get('meja', 'Api\MejaController@index');
+    Route::get('IDMeja/{nomor}', 'Api\MejaController@getIDbyNomor');
     Route::post('meja', 'Api\MejaController@store');
     Route::put('meja/{id}', 'Api\MejaController@update');
     Route::delete('meja/{id}', 'Api\MejaController@destroy');
 
     Route::get('customer', 'Api\CustomerController@index');
+    Route::get('IDCustomer/{nama}', 'Api\CustomerController@getIDbyNama');
     Route::post('customer', 'Api\CustomerController@store');
     Route::put('customer/{id}', 'Api\CustomerController@update');
     Route::delete('customer/{id}', 'Api\CustomerController@destroy');

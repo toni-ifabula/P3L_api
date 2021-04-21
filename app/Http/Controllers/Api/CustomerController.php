@@ -27,6 +27,21 @@ class CustomerController extends Controller
         ], 404);
     }
 
+    public function getIDbyNama($nama) {
+        $idCustomer = Customer::select('ID_CUSTOMER')->where('NAMA_CUSTOMER', '=', $nama)->get();
+        if($idCustomer->isEmpty()){
+            return response([
+                'message' => 'Customer Not Found',
+                'data' => null
+            ], 404);
+        } else {
+            return response([
+                'message' => 'Customer Found',
+                'data' => $idCustomer,
+            ], 200);
+        }
+    }
+
     // CREATE
     public function store(Request $request){
         $storeData = $request->all();
