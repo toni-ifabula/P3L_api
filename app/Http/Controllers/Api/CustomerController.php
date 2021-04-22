@@ -82,10 +82,18 @@ class CustomerController extends Controller
             return response(['message' => $validate->errors()], 400);
         
         $customer->NAMA_CUSTOMER = $updateData['NAMA_CUSTOMER'];
-        if(!empty($updateData['TELEPON_CUSTOMER']))
+        if(!empty($updateData['TELEPON_CUSTOMER'])){
             $customer->TELEPON_CUSTOMER = $updateData['TELEPON_CUSTOMER'];
-        if(!empty($updateData['EMAIL_CUSTOMER']))
+        } else {
+            $customer->TELEPON_CUSTOMER = null;
+        }
+            
+        if(!empty($updateData['EMAIL_CUSTOMER'])) {
             $customer->EMAIL_CUSTOMER = $updateData['EMAIL_CUSTOMER'];
+        } else {
+            $customer->EMAIL_CUSTOMER = null;
+        }
+            
 
         if($customer->save()){
             return response([
