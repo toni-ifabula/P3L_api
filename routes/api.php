@@ -45,6 +45,7 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::delete('customer/{id}', 'Api\CustomerController@destroy');
 
     Route::get('stokBahan', 'Api\StokBahanController@index');
+    Route::get('IDStokBahan/{nama}', 'Api\StokBahanController@getIDbyNama');
     Route::post('stokBahan', 'Api\StokBahanController@store');
     Route::put('stokBahan/{id}', 'Api\StokBahanController@update');
     Route::delete('stokBahan/{id}', 'Api\StokBahanController@destroy');

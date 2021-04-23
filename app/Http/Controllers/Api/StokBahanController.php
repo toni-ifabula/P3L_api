@@ -27,6 +27,21 @@ class StokBahanController extends Controller
         ], 404);
     }
 
+    public function getIDbyNama($nama) {
+        $idStok = StokBahan::select('ID_STOK')->where('NAMA_STOK', '=', $nama)->get();
+        if($idStok->isEmpty()){
+            return response([
+                'message' => 'Stok bahan Not Found',
+                'data' => null
+            ], 404);
+        } else {
+            return response([
+                'message' => 'Stok bahan Found',
+                'data' => $idStok,
+            ], 200);
+        }
+    }
+
     // CREATE
     public function store(Request $request){
         $storeData = $request->all();
