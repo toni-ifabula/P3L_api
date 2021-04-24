@@ -27,6 +27,22 @@ class DetailStokController extends Controller
         ], 404);
     }
 
+    // SHOW BY ID
+    public function showByID($id){
+        $detail_stok = DetailStok::select('*')->where('ID_STOK', '=', $id)->get();
+        if($detail_stok->isEmpty()){
+            return response([
+                'message' => 'Detail Stok Bahan Not Found',
+                'data' => null
+            ], 404);
+        } else {
+            return response([
+                'message' => 'Retrieve Detail Stok Bahan Success',
+                'data' => $detail_stok
+            ], 200);
+        }
+    }
+
     // CREATE
     public function store(Request $request){
         $storeData = $request->all();
@@ -43,15 +59,15 @@ class DetailStokController extends Controller
         
         $detail_stok = DetailStok::create($storeData);
         return response([
-            'message' => 'Create Stok Bahan Success',
+            'message' => 'Create Detail Stok Bahan Success',
             'data' => $detail_stok,
         ], 200);
     }
 
-    // CALCULATE REMAINING
+    //TODO CALCULATE REMAINING
 
 
-    // CALCULATE WASTE
+    //TODO CALCULATE WASTE
 
     
     // UPDATE
@@ -59,7 +75,7 @@ class DetailStokController extends Controller
         $detail_stok = DetailStok::find($id);
         if(is_null($detail_stok)){
             return response([
-                'message' => 'Stok Bahan Not Found',
+                'message' => 'Detail Stok Bahan Not Found',
                 'data' => null
             ], 404);
         }
@@ -86,13 +102,13 @@ class DetailStokController extends Controller
 
         if($detail_stok->save()){
             return response([
-                'message' => 'Update Stok Bahan Success',
+                'message' => 'Update Detail Stok Bahan Success',
                 'data' => $detail_stok,
             ], 200);
         }
         
         return response([
-            'message' => 'Update Stok Bahan Failed',
+            'message' => 'Update Detail Stok Bahan Failed',
             'data' => null
         ], 400);
     }
@@ -110,13 +126,13 @@ class DetailStokController extends Controller
 
         if($detail_stok->delete()){
             return response([
-                'message' => 'Delete Stok Bahan Success',
+                'message' => 'Delete Detail Stok Bahan Success',
                 'data' => $detail_stok
             ], 200);
         }
 
         return response([
-            'message' => 'Delete Stok Bahan Failed',
+            'message' => 'Delete Detail Stok Bahan Failed',
             'data' => null
         ], 400);
     }

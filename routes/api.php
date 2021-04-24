@@ -55,7 +55,8 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::put('reservasi/{id}', 'Api\ReservasiController@update');
     Route::delete('reservasi/{id}', 'Api\ReservasiController@destroy');
 
-    Route::get('detailStok', 'Api\DetailStokController@index');
+    Route::get('detailStokAll', 'Api\DetailStokController@index');
+    Route::get('detailStok/{id}', 'Api\DetailStokController@showByID');
     Route::post('detailStok', 'Api\DetailStokController@store');
     Route::put('detailStok/{id}', 'Api\DetailStokController@update');
     Route::delete('detailStok/{id}', 'Api\DetailStokController@destroy');
