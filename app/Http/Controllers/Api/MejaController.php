@@ -46,7 +46,7 @@ class MejaController extends Controller
     public function store(Request $request){
         $storeData = $request->all();
         $validate = Validator::make($storeData, [
-            'NOMOR_MEJA' => 'required|numeric',
+            'NOMOR_MEJA' => 'required|numeric|unique:meja',
             'STATUS_MEJA' => 'required|alpha'
         ]);
 
@@ -72,7 +72,7 @@ class MejaController extends Controller
 
         $updateData = $request->all();
         $validate = Validator::make($updateData, [
-            'NOMOR_MEJA' => 'required|numeric',
+            'NOMOR_MEJA' => ['required', 'numeric', Rule::unique('meja')->ignore($meja)],
             'STATUS_MEJA' => 'required|alpha'
         ]);
 

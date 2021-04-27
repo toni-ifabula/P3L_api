@@ -33,7 +33,7 @@ class MenuController extends Controller
         $validate = Validator::make($storeData, [
             'ID_STOK' => 'required|numeric',
             'KATEGORI_MENU' => 'required',
-            'NAMA_MENU' => 'required',
+            'NAMA_MENU' => 'required|unique:menu',
             'DESKRIPSI_MENU' => 'required',
             'UNIT_MENU' => 'required',
             'HARGA_MENU' => 'required|numeric'
@@ -63,7 +63,7 @@ class MenuController extends Controller
         $validate = Validator::make($updateData, [
             'ID_STOK' => 'required|numeric',
             'KATEGORI_MENU' => 'required',
-            'NAMA_MENU' => 'required',
+            'NAMA_MENU' => ['required', Rule::unique('menu')->ignore($menu)],
             'DESKRIPSI_MENU' => 'required',
             'UNIT_MENU' => 'required',
             'HARGA_MENU' => 'required|numeric'
