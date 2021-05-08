@@ -18,6 +18,7 @@ class Menu extends Model
         'NAMA_MENU',
         'DESKRIPSI_MENU',
         'UNIT_MENU',
-        'HARGA_MENU'
+        'HARGA_MENU',
+        'IMAGE'
     ];
 }

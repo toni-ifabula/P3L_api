@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Validator;
 use App\Reservasi;
+use App\Meja;
 
 class ReservasiController extends Controller
 {
@@ -41,6 +42,13 @@ class ReservasiController extends Controller
             return response(['message' => $validate->errors()], 400);
         
         $reservasi = Reservasi::create($storeData);
+
+        // otomatis ubah status meja jadi "isi"
+        $idMeja = $request->input('ID_MEJA');
+        $meja = Meja::find($idMeja);
+        $meja->STATUS_MEJA = 'Isi';
+        $meja->save();
+
         return response([
             'message' => 'Create Reservasi Success',
             'data' => $reservasi,

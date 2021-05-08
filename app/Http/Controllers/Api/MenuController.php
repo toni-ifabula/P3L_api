@@ -36,7 +36,8 @@ class MenuController extends Controller
             'NAMA_MENU' => 'required|unique:menu',
             'DESKRIPSI_MENU' => 'required',
             'UNIT_MENU' => 'required',
-            'HARGA_MENU' => 'required|numeric'
+            'HARGA_MENU' => 'required|numeric',
+            'IMAGE' => 'required'
         ]);
 
         if($validate->fails())
@@ -66,7 +67,8 @@ class MenuController extends Controller
             'NAMA_MENU' => ['required', Rule::unique('menu')->ignore($menu)],
             'DESKRIPSI_MENU' => 'required',
             'UNIT_MENU' => 'required',
-            'HARGA_MENU' => 'required|numeric'
+            'HARGA_MENU' => 'required|numeric',
+            'IMAGE' => 'required'
         ]);
 
         if($validate->fails())
@@ -78,6 +80,7 @@ class MenuController extends Controller
         $menu->DESKRIPSI_MENU = $updateData['DESKRIPSI_MENU'];
         $menu->UNIT_MENU = $updateData['UNIT_MENU'];
         $menu->HARGA_MENU = $updateData['HARGA_MENU'];
+        $menu->IMAGE = $updateData['IMAGE'];
 
         if($menu->save()){
             return response([

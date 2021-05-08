@@ -61,8 +61,10 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::put('detailStok/{id}', 'Api\DetailStokController@update');
     Route::delete('detailStok/{id}', 'Api\DetailStokController@destroy');
 
-    Route::get('menu', 'Api\MenuController@index');
+    
     Route::post('menu', 'Api\MenuController@store');
     Route::put('menu/{id}', 'Api\MenuController@update');
     Route::delete('menu/{id}', 'Api\MenuController@destroy');
 });
+
+Route::get('menu', 'Api\MenuController@index');
