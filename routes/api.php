@@ -54,13 +54,12 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::post('reservasi', 'Api\ReservasiController@store');
     Route::put('reservasi/{id}', 'Api\ReservasiController@update');
     Route::delete('reservasi/{id}', 'Api\ReservasiController@destroy');
-
+    
     Route::get('detailStokAll', 'Api\DetailStokController@index');
     Route::get('detailStok/{id}', 'Api\DetailStokController@showByID');
     Route::post('detailStok', 'Api\DetailStokController@store');
     Route::put('detailStok/{id}', 'Api\DetailStokController@update');
     Route::delete('detailStok/{id}', 'Api\DetailStokController@destroy');
-
     
     Route::post('menu', 'Api\MenuController@store');
     Route::put('menu/{id}', 'Api\MenuController@update');
@@ -76,6 +75,12 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::post('detailPesanan', 'Api\DetailPesananController@store');
     Route::put('detailPesanan/{id}', 'Api\DetailPesananController@update');
     Route::delete('detailPesanan/{id}', 'Api\DetailPesananController@destroy');
+
+    Route::get('transaksi', 'Api\TransaksiController@index');
+    Route::post('transaksi', 'Api\TransaksiController@store');
+    Route::put('transaksi/{id}', 'Api\TransaksiController@update');
+    Route::delete('transaksi/{id}', 'Api\TransaksiController@destroy');
 });
 
 Route::get('menu', 'Api\MenuController@index');
+Route::get('reservasiRelation/{id}', 'Api\ReservasiController@getReservasiRelation');

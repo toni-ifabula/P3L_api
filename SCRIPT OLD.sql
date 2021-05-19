@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 19, 2021 at 12:18 PM
+-- Generation Time: May 07, 2021 at 06:18 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.9
 
@@ -56,13 +56,6 @@ CREATE TABLE `detail_pesanan` (
   `SUBTOTAL_ITEM_PESANAN` decimal(10,0) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `detail_pesanan`
---
-
-INSERT INTO `detail_pesanan` (`ID_PESANAN`, `ID_MENU`, `JUMLAH_ITEM_PESANAN`, `SUBTOTAL_ITEM_PESANAN`) VALUES
-(1, 10, '5', '1000');
-
 -- --------------------------------------------------------
 
 --
@@ -83,8 +76,12 @@ CREATE TABLE `detail_stok_bahan` (
 --
 
 INSERT INTO `detail_stok_bahan` (`ID_DETAIL_STOK`, `ID_STOK`, `TANGGAL_MASUK_STOK`, `INCOMING_STOK`, `REMAINING_STOK`, `WASTE_STOK`) VALUES
-(9, 7, '2021-05-01', '100', '100', '30'),
-(10, 7, '2021-05-02', '20', '20', '5');
+(3, 1, '2020-02-02', '1000', '40', '20'),
+(4, 1, '2021-06-06', '666', '66', '6'),
+(5, 3, '2021-04-07', '34', '23', '21'),
+(6, 1, '2021-04-07', '111', '111', '12'),
+(7, 3, '2021-04-03', '333', '333', '13'),
+(8, 6, '2021-04-02', '4000', '4000', '40');
 
 -- --------------------------------------------------------
 
@@ -148,9 +145,9 @@ CREATE TABLE `meja` (
 --
 
 INSERT INTO `meja` (`ID_MEJA`, `NOMOR_MEJA`, `STATUS_MEJA`) VALUES
-(1, '141', 'Isi'),
-(3, '146', 'Kosong'),
-(7, '144', 'Isi');
+(1, '141', 'Kosong'),
+(3, '146', 'Isi'),
+(7, '144', 'Kosong');
 
 -- --------------------------------------------------------
 
@@ -174,16 +171,8 @@ CREATE TABLE `menu` (
 --
 
 INSERT INTO `menu` (`ID_MENU`, `ID_STOK`, `KATEGORI_MENU`, `NAMA_MENU`, `DESKRIPSI_MENU`, `UNIT_MENU`, `HARGA_MENU`, `IMAGE`) VALUES
-(10, 7, 'Makanan Utama', 'Beef Short Plate', 'Potongan daging sapi dari bagian otot perut, bentuknya panjang dan datar', 'Plate', '20000', 'https://images.tokopedia.net/img/cache/700/product-1/2020/3/27/696514195/696514195_6acd13ab-0b8a-449a-ac0e-d0e05ca56e54_2048_2048.jpg'),
-(11, 8, 'Makanan Utama', 'Chicken Slice', 'Potongan daging dari bagian dada ayam', 'Plate', '15000', 'https://www.bigbasket.com/media/uploads/p/xxl/10001001_7-fresho-chicken-breast-boneless-antibiotic-residue-free.jpg'),
-(12, 9, 'Makanan Utama', 'Squid', 'Potongan daging cumi', 'Plate', '20000', 'https://images.creativemarket.com/0.1.0/ps/8504414/600/400/m1/fpc/wm1/vri286icrftkmhy2agzivjkaih5m3htbmcd7qeikyx7w8ln70iuk8a7pg13zvlal-.jpg?1591774449&s=94f53b8b2cc016cac2d38b99e93f4c5a'),
-(13, 10, 'Makanan Utama', 'Tenderloin', 'Potongan daging sapi yang paling empuk sejagad raya', 'Plate', '22000', 'https://www.alodokter.com/wp-content/uploads/2020/11/Inilah-Perbedaan-Sirloin-dan-Tenderloin.jpg'),
-(14, 11, 'Makanan Utama', 'Rice', 'Satu mangkok nasi putih dihidangkan hangat', 'Bowl', '4000', 'https://assets.tmecosys.com/image/upload/t_web767x639/img/recipe/ras/Assets/DE38BC2F-473D-4AC2-9DFC-AF9E51A04568/Derivates/8C97D37C-410B-439F-B412-AC2D81AD7D1F.jpg'),
-(15, 12, 'Makanan Side Dish', 'Kimchi', 'Asinan sayur hasil fermentasi yang diberi bumbu pedas', 'Plate', '5000', 'https://cdns.klimg.com/merdeka.com/i/w/news/2020/06/10/1186153/540x270/5-cara-membuat-kimchi-ala-korea-di-rumah-dengan-bahan-lokal-enak-dan-mudah.jpg'),
-(16, 13, 'Makanan Side Dish', 'Saos', 'Saos signature yang melengkapi kelezatan makanan', 'Mini Bowl', '0', 'https://food.fnr.sndimg.com/content/dam/images/food/fullset/2011/7/26/0/NY0100_neelys-bbq-sauce_s4x3.jpg.rend.hgtvcom.616.462.suffix/1371597847826.jpeg'),
-(17, 14, 'Minuman', 'Ocha', 'Minuman teh hijau segar', 'Glass', '3000', 'http://3.bp.blogspot.com/-pr5uKxZ-qeg/VOWTaivB92I/AAAAAAAABVg/wk2SG2PoiXA/s1600/20071219_281056.jpg'),
-(18, 15, 'Minuman', 'Mineral Water 600 ml', 'Minuman air segar dari pegunungan ternama', 'Bottle', '6000', 'https://d2qjkwm11akmwu.cloudfront.net/products/630433_29-10-2019_13-1-49.jpg'),
-(19, 16, 'Minuman', 'Orange Juice', 'Minuman jus jeruk yang didapat dari buah asli', 'Glass', '8000', 'https://i0.wp.com/images-prod.healthline.com/hlcmsresource/images/AN_images/orange-juice-1296x728-feature.jpg?w=1155&h=1528');
+(5, 3, 'Minuman', 'qwe', 'qweqweqwe', 'qwe', '123', NULL),
+(6, 3, 'Makanan Side Dish', 'ccc', 'cccc', 'Plate', '2000', NULL);
 
 -- --------------------------------------------------------
 
@@ -241,19 +230,15 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('0219bbcf786ec3bdbd87088b0e954938c74af841bce869589164a3adc766bd5a8a293eff42cb06fa', 1, 1, 'Authentication Token', '[]', 0, '2021-04-14 03:59:10', '2021-04-14 03:59:10', '2022-04-14 10:59:10'),
 ('09d82b1da0f6d4a6d870205c6aef8b575aadeb0a9e529f20f13a0fd16f99506709d5c9a86f892684', 11, 1, 'Authentication Token', '[]', 0, '2021-04-28 22:55:08', '2021-04-28 22:55:08', '2022-04-29 05:55:08'),
 ('0a956431290fc5f35dce30e0ff70b508c230683b6e4c693224bdbfbd237d49bb0a6e189faf40a79b', 1, 1, 'Authentication Token', '[]', 0, '2021-04-28 22:19:39', '2021-04-28 22:19:39', '2022-04-29 05:19:39'),
-('0b0ac7de55ab3baa2599cef54f2a4523b972ae5bb5f3e37b31cc296f8cb69bc192a00162acca3b9d', 11, 1, 'Authentication Token', '[]', 0, '2021-05-07 03:21:04', '2021-05-07 03:21:04', '2022-05-07 10:21:04'),
 ('0eb2d0c771463cce319b7d51e94813b5b51c70a049344b380b44134634e7c380baf3e87fa9616749', 1, 1, 'Authentication Token', '[]', 0, '2021-04-06 03:13:33', '2021-04-06 03:13:33', '2022-04-06 10:13:33'),
 ('168c10174fe54e2ffc9301379cfd3562dc5eda909e3884e1c50516798b10dda5058f5375566caa4c', 1, 1, 'Authentication Token', '[]', 0, '2021-04-14 03:57:31', '2021-04-14 03:57:31', '2022-04-14 10:57:31'),
 ('1ad087b1e93b4ec569c0f944b85c3aab612942e85d5a4b9196546781e3b94ff41718e6b84d11f4b7', 3, 1, 'Authentication Token', '[]', 0, '2021-04-16 08:06:59', '2021-04-16 08:06:59', '2022-04-16 15:06:59'),
 ('1cd26f5cb10622c4df40691c683ec69830fca0d49c9e072ff9893324f8a6da11555f902214578362', 9, 1, 'Authentication Token', '[]', 0, '2021-04-27 05:11:09', '2021-04-27 05:11:09', '2022-04-27 12:11:09'),
-('1f10aea5b2f391ed2e6cd00184105859b274c3949ae6f31084a0abfec62e3b903b082e98b8daa71e', 11, 1, 'Authentication Token', '[]', 0, '2021-05-11 04:00:48', '2021-05-11 04:00:48', '2022-05-11 11:00:48'),
 ('27c416afef9790fdd627726c06118813050d34e97d320ddee50e075ddde2a24f11acb3d822afb740', 11, 1, 'Authentication Token', '[]', 0, '2021-04-29 00:24:47', '2021-04-29 00:24:47', '2022-04-29 07:24:47'),
 ('355e68f5c910ef8f4548985f95cc6dd04191d5e4828ae60cadd6ce72a770b0cb13cfda84cd88720d', 11, 1, 'Authentication Token', '[]', 0, '2021-04-28 07:14:47', '2021-04-28 07:14:47', '2022-04-28 14:14:47'),
-('36e8cb7ee27102c0fd24dc9ee34b0df40e8cdc3ec1d921706e98df6e2df5be6ea575703bbad17226', 11, 1, 'Authentication Token', '[]', 0, '2021-05-08 02:26:51', '2021-05-08 02:26:51', '2022-05-08 09:26:51'),
 ('3d848ad7cc7e77988d19ab952f29cd93edf3639aa070d86b28b7645c7d961824d2ec036ef8271cd3', 1, 1, 'Authentication Token', '[]', 0, '2021-04-14 03:57:44', '2021-04-14 03:57:44', '2022-04-14 10:57:44'),
 ('46b458bf5c59f3c10bb6d6595187e04a5116745f006dc88eac3bdfe15a3a9ff169df175c65908390', 11, 1, 'Authentication Token', '[]', 0, '2021-04-28 23:24:31', '2021-04-28 23:24:31', '2022-04-29 06:24:31'),
 ('49f9d6ba4d874bdcc5e16946af8a0d5fe2ef239a95abfdc4f9169ed4149cb18ed789e6ebd1b80e35', 11, 1, 'Authentication Token', '[]', 0, '2021-04-27 05:11:26', '2021-04-27 05:11:26', '2022-04-27 12:11:26'),
-('4e7444ae51aa38bcb474344dfaddc41c670930de9714aed63e9e6026fa76350ee793bc793bbcabee', 10, 1, 'Authentication Token', '[]', 0, '2021-05-08 02:26:35', '2021-05-08 02:26:35', '2022-05-08 09:26:35'),
 ('5ba698baf923ba8e23503f30b9f2ff12551dccff7172138f9214abcbf8b36743d00b8e588aececbd', 1, 1, 'Authentication Token', '[]', 0, '2021-04-14 04:00:42', '2021-04-14 04:00:42', '2022-04-14 11:00:42'),
 ('5f8ebc370a9238a82fc5c1f38892ef4810df1837d3f9bf44b55b41ca7464ec0b0df16ebb052d05d1', 1, 1, 'Authentication Token', '[]', 0, '2021-04-14 01:36:56', '2021-04-14 01:36:56', '2022-04-14 08:36:56'),
 ('6508804477d3e2d203e0cf75a54e777edb41b7976eb9921dfcc006e3bf68d774ebaf263292405cdd', 12, 1, 'Authentication Token', '[]', 0, '2021-04-29 00:28:46', '2021-04-29 00:28:46', '2022-04-29 07:28:46'),
@@ -266,8 +251,6 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('939e710539ee56157c7fc9d9024f56ae189ff0c395867403e5df3b66bf2a884bc3ed65f0f29bff38', 11, 1, 'Authentication Token', '[]', 0, '2021-04-29 00:28:57', '2021-04-29 00:28:57', '2022-04-29 07:28:57'),
 ('97f124be40dfda444e15018a99229878248f74273127619618a9de88addae5b989698a5477afbf0e', 1, 1, 'Authentication Token', '[]', 0, '2021-04-16 06:18:20', '2021-04-16 06:18:20', '2022-04-16 13:18:20'),
 ('9f021e39e8909a1ed4004dc4150811f151cdb515c5ca4a90fb45900393543ddf1abf53b1128bf603', 1, 1, 'Authentication Token', '[]', 0, '2021-04-29 00:24:18', '2021-04-29 00:24:18', '2022-04-29 07:24:18'),
-('a0bf8a93aafc953b033287bffb018d426131a4eafbad47b291e859e288106c7a878b0b586793b3c0', 11, 1, 'Authentication Token', '[]', 0, '2021-05-11 02:39:02', '2021-05-11 02:39:02', '2022-05-11 09:39:02'),
-('a4a9afd76c9580e94ba0572a37ff8519d0fbe2a3f06e334059dd5a8ac9e78cc5bef648a7fa11a1f5', 11, 1, 'Authentication Token', '[]', 0, '2021-05-08 01:40:07', '2021-05-08 01:40:07', '2022-05-08 08:40:07'),
 ('ae7ea832b2e600c3be6fbbe79ba3c29d54f495019deae9c832309f184fe7b117fca11841332be118', 3, 1, 'Authentication Token', '[]', 0, '2021-04-27 05:09:51', '2021-04-27 05:09:51', '2022-04-27 12:09:51'),
 ('af6b23ae84f75967bf3f7e5bde5961defa48a533254f7476945de2e9e852ef0328e1ef388bf64611', 1, 1, 'Authentication Token', '[]', 0, '2021-04-14 03:59:05', '2021-04-14 03:59:05', '2022-04-14 10:59:05'),
 ('b4a9db600c8ff62a1ad2e488913239f7d0c2acb5fd1db9c73050659af2d73838f21913c4bca79382', 11, 1, 'Authentication Token', '[]', 0, '2021-04-28 23:23:41', '2021-04-28 23:23:41', '2022-04-29 06:23:41'),
@@ -276,7 +259,6 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('be29a8d4362af32f40b66276e280bf838d10af92bc33bf05fee25d83c90c5444caf0b3bf5332d7f0', 1, 1, 'Authentication Token', '[]', 0, '2021-04-14 04:01:46', '2021-04-14 04:01:46', '2022-04-14 11:01:46'),
 ('c24b588e7252ab9a0bc68de062ed34c0c0ee72701d2398da5ef80eacf725b8f5526eba5c4c7ce72b', 11, 1, 'Authentication Token', '[]', 0, '2021-04-28 22:27:35', '2021-04-28 22:27:35', '2022-04-29 05:27:35'),
 ('c24c3e1d208024b9e40828d9cb3d0c6360b3702735eb6da8cb7a34100ca3ac354327c057e34195b1', 1, 1, 'Authentication Token', '[]', 0, '2021-04-06 05:17:05', '2021-04-06 05:17:05', '2022-04-06 12:17:05'),
-('ce621544312d2cdebea9ce486efd2e4726e9a6b55d0c628bb4b7209743e6aa74cac3d867f311710d', 11, 1, 'Authentication Token', '[]', 0, '2021-05-18 08:20:06', '2021-05-18 08:20:06', '2022-05-18 15:20:06'),
 ('de8fd812d8ae9dbd5c34218b5048097782a13e4556f496151a9b33f194c39bd4e464ab75f437b65f', 11, 1, 'Authentication Token', '[]', 0, '2021-04-29 01:00:10', '2021-04-29 01:00:10', '2022-04-29 08:00:10'),
 ('dfbcf697808d5b6f71d2775515cb1bdc74587b14fdde495ac15e59cae290a43d4f559ef25e17c39e', 11, 1, 'Authentication Token', '[]', 0, '2021-04-28 07:18:29', '2021-04-28 07:18:29', '2022-04-28 14:18:29'),
 ('e7d32d6fe548ad310748c9bd692d7ea075c6aa034eddca9026c9ea6b7b75368eae1fd1bd61843140', 10, 1, 'Authentication Token', '[]', 0, '2021-04-28 22:39:08', '2021-04-28 22:39:08', '2022-04-29 05:39:08'),
@@ -394,13 +376,6 @@ CREATE TABLE `pesanan` (
   `STATUS_LUNAS_PESANAN` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `pesanan`
---
-
-INSERT INTO `pesanan` (`ID_PESANAN`, `ID_KARYAWAN`, `ID_RESERVASI`, `STATUS_PESANAN`, `SUBTOTAL_PESANAN`, `SERVICE_PESANAN`, `TAX_PESANAN`, `TOTAL_PESANAN`, `TOTAL_JUMLAH_PESANAN`, `TOTAL_ITEM_PESANAN`, `STATUS_LUNAS_PESANAN`) VALUES
-(1, 11, 41, 'Disajikan', '1000', '1000', '1000', '1000', '10', '5', 'Belum');
-
 -- --------------------------------------------------------
 
 --
@@ -420,8 +395,9 @@ CREATE TABLE `reservasi` (
 --
 
 INSERT INTO `reservasi` (`ID_RESERVASI`, `ID_MEJA`, `ID_CUSTOMER`, `SESI_RESERVASI`, `TANGGAL_RESERVASI`) VALUES
-(41, 1, 5, 'Lunch', '2021-05-01'),
-(42, 7, 5, 'Lunch', '2021-05-08');
+(7, 7, 6, 'Dinner', '2021-04-10'),
+(27, 1, 5, 'Dinner', '2021-04-16'),
+(28, 1, 5, 'Lunch', '2021-05-08');
 
 -- --------------------------------------------------------
 
@@ -463,30 +439,24 @@ CREATE TABLE `stok_bahan` (
 --
 
 INSERT INTO `stok_bahan` (`ID_STOK`, `NAMA_STOK`, `UNIT_STOK`, `HARGA_STOK`) VALUES
-(7, 'Beef Short Plate', 'gram', '1000'),
-(8, 'Chicken Slice', 'gram', '1000'),
-(9, 'Squid', 'gram', '1000'),
-(10, 'Tenderloin', 'gram', '1000'),
-(11, 'Rice', 'gram', '1000'),
-(12, 'Kimchi', 'gram', '1000'),
-(13, 'Saos', 'ml', '1000'),
-(14, 'Ocha', 'ml', '1000'),
-(15, 'Mineral Water', 'ml', '1000'),
-(16, 'Orange Juice', 'ml', '1000');
+(1, 'qwe', 'gram', '123'),
+(3, 'Rice', 'gram', '1000'),
+(5, 'tehHH', 'ml', '10'),
+(6, 'es', 'ml', '2222');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `transaksi`
+-- Table structure for table `transaksi_pesanan`
 --
 
-CREATE TABLE `transaksi` (
+CREATE TABLE `transaksi_pesanan` (
   `ID_TRANSAKSI` int(11) NOT NULL,
   `ID_PESANAN` int(11) NOT NULL,
   `ID_KARYAWAN` int(11) NOT NULL,
   `NOMOR_TRANSAKSI` varchar(255) DEFAULT NULL,
   `TANGGAL_TRANSAKSI` date DEFAULT NULL,
-  `WAKTU_TRANSAKSI` varchar(255) DEFAULT NULL,
+  `WAKTU_TRANSAKSI` time DEFAULT NULL,
   `JENIS_PEMBAYARAN_TRANSAKSI` varchar(255) DEFAULT NULL,
   `NOMOR_KARTU_TRANSAKSI` decimal(20,0) DEFAULT NULL,
   `NAMA_CREDIT_TRANSAKSI` varchar(255) DEFAULT NULL,
@@ -639,9 +609,9 @@ ALTER TABLE `stok_bahan`
   ADD PRIMARY KEY (`ID_STOK`);
 
 --
--- Indexes for table `transaksi`
+-- Indexes for table `transaksi_pesanan`
 --
-ALTER TABLE `transaksi`
+ALTER TABLE `transaksi_pesanan`
   ADD PRIMARY KEY (`ID_TRANSAKSI`),
   ADD KEY `FK_TRANSAKSI_REALTIONS_KARYAWAN` (`ID_KARYAWAN`),
   ADD KEY `FK_TRANSAKSI_RELATIONS_PESANAN` (`ID_PESANAN`);
@@ -667,7 +637,7 @@ ALTER TABLE `customer`
 -- AUTO_INCREMENT for table `detail_stok_bahan`
 --
 ALTER TABLE `detail_stok_bahan`
-  MODIFY `ID_DETAIL_STOK` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `ID_DETAIL_STOK` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -691,7 +661,7 @@ ALTER TABLE `meja`
 -- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `ID_MENU` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `ID_MENU` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -715,13 +685,13 @@ ALTER TABLE `oauth_personal_access_clients`
 -- AUTO_INCREMENT for table `pesanan`
 --
 ALTER TABLE `pesanan`
-  MODIFY `ID_PESANAN` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID_PESANAN` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `reservasi`
 --
 ALTER TABLE `reservasi`
-  MODIFY `ID_RESERVASI` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `ID_RESERVASI` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `role`
@@ -733,12 +703,12 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT for table `stok_bahan`
 --
 ALTER TABLE `stok_bahan`
-  MODIFY `ID_STOK` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `ID_STOK` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `transaksi`
+-- AUTO_INCREMENT for table `transaksi_pesanan`
 --
-ALTER TABLE `transaksi`
+ALTER TABLE `transaksi_pesanan`
   MODIFY `ID_TRANSAKSI` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -791,9 +761,9 @@ ALTER TABLE `reservasi`
   ADD CONSTRAINT `FK_RESERVASI_RELATIONS_MEJA` FOREIGN KEY (`ID_MEJA`) REFERENCES `meja` (`ID_MEJA`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `transaksi`
+-- Constraints for table `transaksi_pesanan`
 --
-ALTER TABLE `transaksi`
+ALTER TABLE `transaksi_pesanan`
   ADD CONSTRAINT `FK_TRANSAKSI_REALTIONS_KARYAWAN` FOREIGN KEY (`ID_KARYAWAN`) REFERENCES `karyawan` (`ID_KARYAWAN`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `FK_TRANSAKSI_RELATIONS_PESANAN` FOREIGN KEY (`ID_PESANAN`) REFERENCES `pesanan` (`ID_PESANAN`);
 COMMIT;

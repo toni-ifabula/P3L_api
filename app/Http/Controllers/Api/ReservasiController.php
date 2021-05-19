@@ -117,4 +117,34 @@ class ReservasiController extends Controller
             'data' => null
         ], 400);
     }
+
+    public function getReservasiRelation($id) {
+        $customer = Reservasi::join('customer', 'reservasi.ID_CUSTOMER', '=', 'customer.ID_CUSTOMER')
+                ->select('customer.*')
+                ->where('reservasi.ID_RESERVASI', '=', $id)
+                ->first();
+
+        $meja = Reservasi::join('meja', 'reservasi.ID_MEJA', '=', 'meja.ID_MEJA')
+                ->select('meja.*')
+                ->where('reservasi.ID_RESERVASI', '=', $id)
+                ->first();
+
+        if(is_null($customer)){
+            return response([
+                'message' => 'Data Customer Not Found',
+                'data' => null
+            ], 404);
+        } else if(is_null($meja)) {
+            return response([
+                'message' => 'Data Meja Not Found',
+                'data' => null
+            ], 404);
+        }
+
+        return response([
+            'message' => 'Data Found',
+            'dataCustomer' => $customer,
+            'dataMeja' => $meja
+        ], 200);
+    }
 }
