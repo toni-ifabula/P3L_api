@@ -72,6 +72,7 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::put('statusPesanan/{id}', 'Api\PesananController@statusDisajikan');
 
     Route::get('detailPesanan', 'Api\DetailPesananController@index');
+    Route::get('detailPesanan/{id}', 'Api\DetailPesananController@showByIdPesanan');
     Route::post('detailPesanan', 'Api\DetailPesananController@store');
     Route::put('detailPesanan/{id}', 'Api\DetailPesananController@update');
     Route::delete('detailPesanan/{id}', 'Api\DetailPesananController@destroy');

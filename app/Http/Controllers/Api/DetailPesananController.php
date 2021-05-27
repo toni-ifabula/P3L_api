@@ -27,6 +27,23 @@ class DetailPesananController extends Controller
         ], 404);
     }
 
+    // SHOW BY ID
+    public function showByIdPesanan($id){
+        $detailPesanan = DetailPesanan::select('*')->where('ID_PESANAN', '=', $id)->get();
+
+        if(count($detailPesanan) > 0){
+            return response([
+                'message' => 'Retrieve Detail Pesanan Success',
+                'data' => $detailPesanan
+            ], 200);
+        } 
+
+        return response([
+            'message' => 'Empty',
+            'data' => null
+        ], 404);
+    }
+
     // CREATE
     public function store(Request $request){
         $storeData = $request->all();
