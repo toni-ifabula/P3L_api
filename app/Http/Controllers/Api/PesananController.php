@@ -153,4 +153,45 @@ class PesananController extends Controller
             'data' => null
         ], 400);
     }
+
+    public function getMejaBelumBayar() {
+        $pesanan = Pesanan::join('reservasi', 'pesanan.ID_RESERVASI', '=', 'reservasi.ID_RESERVASI')
+                        ->join('meja', 'reservasi.ID_MEJA', '=', 'meja.ID_MEJA')
+                        ->select('meja.NOMOR_MEJA')
+                        ->where('pesanan.STATUS_LUNAS_PESANAN', '=', 'Belum')
+                        ->pluck('meja.NOMOR_MEJA');
+        
+        if(count($pesanan) > 0){
+            return response([
+                'message' => 'Retrieve Pesanan Belum Bayar Success',
+                'data' => $pesanan
+            ], 200);
+        }
+
+        return response([
+            'message' => 'Empty',
+            'data' => null
+        ], 404);
+    }
+
+    public function getInfoByNomorMeja($nomor) {
+        $pesanan = Pesanan::join('reservasi', 'pesanan.ID_RESERVASI', '=', 'reservasi.ID_RESERVASI')
+                        ->join('meja', 'reservasi.ID_MEJA', '=', 'meja.ID_MEJA')
+                        ->select('pesanan.*')
+                        ->where('meja.NOMOR_MEJA', '=', $nomor)
+                        ->where('pesanan.STATUS_LUNAS_PESANAN', '=', 'Belum')
+                        ->first();
+        
+        if(is_null($pesanan)){
+            return response([
+                'message' => 'Data Pesanan Not Found',
+                'data' => null
+            ], 404);
+        }
+
+        return response([
+            'message' => 'Data Found',
+            'data' => $pesanan,
+        ], 200);
+    }
 }

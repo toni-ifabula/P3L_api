@@ -70,6 +70,8 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::put('pesanan/{id}', 'Api\PesananController@update');
     Route::delete('pesanan/{id}', 'Api\PesananController@destroy');
     Route::put('statusPesanan/{id}', 'Api\PesananController@statusDisajikan');
+    Route::get('pesananByMeja/{id}', 'Api\PesananController@getInfoByNomorMeja');
+    Route::get('mejaBelumBayar', 'Api\PesananController@getMejaBelumBayar');
 
     Route::get('detailPesanan', 'Api\DetailPesananController@index');
     Route::get('detailPesanan/{id}', 'Api\DetailPesananController@showByIdPesanan');
