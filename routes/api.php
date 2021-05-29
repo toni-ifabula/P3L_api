@@ -60,6 +60,7 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::post('detailStok', 'Api\DetailStokController@store');
     Route::put('detailStok/{id}', 'Api\DetailStokController@update');
     Route::delete('detailStok/{id}', 'Api\DetailStokController@destroy');
+    Route::post('detailPesananRemaining', 'Api\DetailStokController@calcRemaining');
     
     Route::post('menu', 'Api\MenuController@store');
     Route::put('menu/{id}', 'Api\MenuController@update');

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Validator;
 use App\DetailStok;
+use Illuminate\Support\Facades\DB;
 
 class DetailStokController extends Controller
 {
@@ -63,12 +64,6 @@ class DetailStokController extends Controller
             'data' => $detail_stok,
         ], 200);
     }
-
-    //TODO CALCULATE REMAINING
-
-
-    //TODO CALCULATE WASTE
-
     
     // UPDATE
     public function update(Request $request, $id){
@@ -134,6 +129,34 @@ class DetailStokController extends Controller
         return response([
             'message' => 'Delete Detail Stok Bahan Failed',
             'data' => null
+        ], 400);
+    }
+
+    // AUTOMATIC REMAINING STOK CALCULATION
+    public function calcRemaining(Request $request) {
+        $idMenu = $request->all()['ID_MENU'];
+        $tanggal = $request->all()['TANGGAL_MASUK_STOK'];
+
+        $idStok = DB::table('stok_bahan')->join('menu', 'menu.ID_STOK' ,'=', 'stok_bahan.ID_STOK')
+                    ->select('stok_bahan.*')->where('menu.ID_MENU', '=', $idMenu)->first();
+        
+        $remaining = DetailStok::where('ID_STOK', '=', $idStok->ID_STOK)
+                    ->where('TANGGAL_MASUK_STOK', '=', $tanggal)->first();
+
+        $servingSize = DB::table('stok_bahan')->where('ID_STOK' , '=', $idStok->ID_STOK)->first();
+
+        $remaining->REMAINING_STOK = $remaining->REMAINING_STOK - $servingSize->SERVING_STOK;
+
+        if($remaining->save()) {
+            return response([
+                'message' => 'Update Remaining Stok Bahan Success',
+                'data' => $remaining->REMAINING_STOK,
+            ], 200);
+        }
+
+        return response([
+            'message' => 'Update Remaining Stok Bahan Failed',
+            'data' => $remaining->REMAINING_STOK
         ], 400);
     }
 }
