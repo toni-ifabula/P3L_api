@@ -28,6 +28,26 @@ class ReservasiController extends Controller
         ], 404);
     }
 
+    // SHOW ALL CUSTOM
+    public function indexCustom(){
+        $reservasi = Reservasi::join('meja', 'reservasi.ID_MEJA', '=', 'meja.ID_MEJA')
+            ->join('customer', 'reservasi.ID_CUSTOMER', '=', 'customer.ID_CUSTOMER')
+            ->select('meja.NOMOR_MEJA', 'customer.NAMA_CUSTOMER', 'reservasi.*')
+            ->get();
+
+        if(count($reservasi) > 0){
+            return response([
+                'message' => 'Retrieve All Success',
+                'data' => $reservasi
+            ], 200);
+        }
+
+        return response([
+            'message' => 'Empty',
+            'daa' => null
+        ], 404);
+    }
+
     // CREATE
     public function store(Request $request){
         $storeData = $request->all();

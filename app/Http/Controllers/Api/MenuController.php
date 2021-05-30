@@ -27,6 +27,25 @@ class MenuController extends Controller
         ], 404);
     }
 
+    // SHOW ALL CUSTOM
+    public function indexCustom(){
+        $menu = Menu::join('stok_bahan', 'menu.ID_STOK', '=', 'stok_bahan.ID_STOK')
+            ->select('menu.*', 'stok_bahan.NAMA_STOK')
+            ->get();
+
+        if(count($menu) > 0){
+            return response([
+                'message' => 'Retrieve All Success',
+                'data' => $menu
+            ], 200);
+        }
+
+        return response([
+            'message' => 'Empty',
+            'daa' => null
+        ], 404);
+    }
+
     // CREATE
     public function store(Request $request){
         $storeData = $request->all();

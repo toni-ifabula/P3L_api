@@ -27,6 +27,26 @@ class TransaksiController extends Controller
         ], 404);
     }
 
+    // SHOW ALL CUSTOM
+    public function indexCustom(){
+        $transaksi = Transaksi::join('pesanan', 'transaksi.ID_PESANAN', '=', 'pesanan.ID_PESANAN')
+            ->join('karyawan', 'pesanan.ID_KARYAWAN', '=', 'karyawan.ID_KARYAWAN')
+            ->select('karyawan.NAMA_KARYAWAN', 'pesanan.TOTAL_PESANAN', 'transaksi.*')
+            ->get();
+
+        if(count($transaksi) > 0){
+            return response([
+                'message' => 'Retrieve All Success',
+                'data' => $transaksi
+            ], 200);
+        }
+
+        return response([
+            'message' => 'Empty',
+            'data' => null
+        ], 404);
+    }
+
     // CREATE
     public function store(Request $request){
         $storeData = $request->all();

@@ -55,6 +55,25 @@ class KaryawanController extends Controller
         ], 404);
     }
 
+    //SHOW ALL CUSTOM
+    public function indexCustom(){
+        $karyawan = Karyawan::join('role', 'role.ID_ROLE', '=', 'karyawan.ID_ROLE')
+            ->select('karyawan.*', 'role.NAMA_ROLE')
+            ->get();
+
+        if(count($karyawan) > 0){
+            return response([
+                'message' => 'Retrieve All Success',
+                'data' => $karyawan
+            ], 200);
+        }
+
+        return response([
+            'message' => 'Empty',
+            'daa' => null
+        ], 404);
+    }
+
     // CREATE
     public function store(Request $request){
         $storeData = $request->all();

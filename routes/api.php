@@ -27,7 +27,8 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::post('role', 'Api\RoleController@store');
     Route::put('role/{id}', 'Api\RoleController@update');
 
-    Route::get('karyawan', 'Api\KaryawanController@index');
+    Route::get('karyawanIndex', 'Api\KaryawanController@index');
+    Route::get('karyawan', 'Api\KaryawanController@indexCustom');
     Route::post('karyawan', 'Api\KaryawanController@store');
     Route::put('karyawan/{id}', 'Api\KaryawanController@update');
     Route::put('resignKaryawan/{id}', 'Api\KaryawanController@resign');
@@ -50,7 +51,8 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::put('stokBahan/{id}', 'Api\StokBahanController@update');
     Route::delete('stokBahan/{id}', 'Api\StokBahanController@destroy');
 
-    Route::get('reservasi', 'Api\ReservasiController@index');
+    Route::get('reservasiIndex', 'Api\ReservasiController@index');
+    Route::get('reservasi', 'Api\ReservasiController@indexCustom');
     Route::post('reservasi', 'Api\ReservasiController@store');
     Route::put('reservasi/{id}', 'Api\ReservasiController@update');
     Route::delete('reservasi/{id}', 'Api\ReservasiController@destroy');
@@ -66,8 +68,7 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::put('menu/{id}', 'Api\MenuController@update');
     Route::delete('menu/{id}', 'Api\MenuController@destroy');
 
-    Route::get('pesanan', 'Api\PesananController@index');
-    Route::post('pesanan', 'Api\PesananController@store');
+    
     Route::put('pesanan/{id}', 'Api\PesananController@update');
     Route::delete('pesanan/{id}', 'Api\PesananController@destroy');
     Route::put('statusPesanan/{id}', 'Api\PesananController@statusDisajikan');
@@ -75,16 +76,22 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::get('mejaBelumBayar', 'Api\PesananController@getMejaBelumBayar');
 
     Route::get('detailPesanan', 'Api\DetailPesananController@index');
-    Route::get('detailPesanan/{id}', 'Api\DetailPesananController@showByIdPesanan');
     Route::post('detailPesanan', 'Api\DetailPesananController@store');
     Route::put('detailPesanan/{id}', 'Api\DetailPesananController@update');
     Route::delete('detailPesanan/{id}', 'Api\DetailPesananController@destroy');
 
-    Route::get('transaksi', 'Api\TransaksiController@index');
+    Route::get('transaksiIndex', 'Api\TransaksiController@index');
+    Route::get('transaksi', 'Api\TransaksiController@indexCustom');
     Route::post('transaksi', 'Api\TransaksiController@store');
     Route::put('transaksi/{id}', 'Api\TransaksiController@update');
     Route::delete('transaksi/{id}', 'Api\TransaksiController@destroy');
 });
 
-Route::get('menu', 'Api\MenuController@index');
+Route::get('menuIndex', 'Api\MenuController@index');
+Route::get('menu', 'Api\MenuController@indexCustom');
 Route::get('reservasiRelation/{id}', 'Api\ReservasiController@getReservasiRelation');
+Route::get('pesananIndex', 'Api\PesananController@index');
+Route::get('pesanan', 'Api\PesananController@indexCustom');
+Route::post('pesanan', 'Api\PesananController@store');
+Route::get('checkPesanan/{idReservasi}', 'Api\PesananController@checkPesananByReservasi');
+Route::get('detailPesanan/{id}', 'Api\DetailPesananController@showByIdPesanan');

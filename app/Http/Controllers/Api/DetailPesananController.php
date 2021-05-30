@@ -29,7 +29,10 @@ class DetailPesananController extends Controller
 
     // SHOW BY ID
     public function showByIdPesanan($id){
-        $detailPesanan = DetailPesanan::select('*')->where('ID_PESANAN', '=', $id)->get();
+        $detailPesanan = DetailPesanan::join('pesanan', 'detail_pesanan.ID_PESANAN', '=', 'pesanan.ID_PESANAN')
+            ->join('menu', 'detail_pesanan.ID_MENU', '=', 'menu.ID_MENU')
+            ->select('menu.NAMA_MENU', 'menu.HARGA_MENU', 'detail_pesanan.*')
+            ->where('detail_pesanan.ID_PESANAN', '=', $id)->get();
 
         if(count($detailPesanan) > 0){
             return response([

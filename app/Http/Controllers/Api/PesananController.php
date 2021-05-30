@@ -27,6 +27,29 @@ class PesananController extends Controller
         ], 404);
     }
 
+    // SHOW ALL CUSTOM
+    public function indexCustom(){
+        $pesanan = Pesanan::join('karyawan', 'pesanan.ID_KARYAWAN', '=', 'karyawan.ID_KARYAWAN')
+            ->join('reservasi', 'pesanan.ID_RESERVASI', '=', 'reservasi.ID_RESERVASI')
+            ->join('customer', 'reservasi.ID_CUSTOMER', '=', 'customer.ID_CUSTOMER')
+            ->join('meja', 'reservasi.ID_MEJA', '=', 'meja.ID_MEJA')
+            ->select('reservasi.ID_RESERVASI', 'customer.NAMA_CUSTOMER', 'karyawan.NAMA_KARYAWAN',
+                'meja.NOMOR_MEJA', 'pesanan.*')
+            ->get();
+
+        if(count($pesanan) > 0){
+            return response([
+                'message' => 'Retrieve All Success',
+                'data' => $pesanan
+            ], 200);
+        }
+
+        return response([
+            'message' => 'Empty',
+            'data' => null
+        ], 404);
+    }
+
     // CREATE
     public function store(Request $request){
         $storeData = $request->all();
@@ -192,6 +215,22 @@ class PesananController extends Controller
         return response([
             'message' => 'Data Found',
             'data' => $pesanan,
+        ], 200);
+    }
+
+    public function checkPesananByReservasi($idReservasi) {
+        $pesanan = Pesanan::where('ID_RESERVASI', '=', $idReservasi)->first();
+
+        if(is_null($pesanan)) {
+            return response([
+                'message' => 'Data Pesanan Not Found',
+                'data' => $pesanan
+            ], 202);
+        }
+
+        return response([
+            'message' => 'Data Pesanan Found',
+            'data' => $pesanan
         ], 200);
     }
 }
