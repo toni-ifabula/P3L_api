@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Validator;
 use App\Pesanan;
+use Illuminate\Support\Facades\DB;
 
 class PesananController extends Controller
 {
@@ -232,5 +233,47 @@ class PesananController extends Controller
             'message' => 'Data Pesanan Found',
             'data' => $pesanan
         ], 200);
+    }
+
+    public function updatePesananTotal($idPesanan) {
+        $pesanan = Pesanan::where('ID_PESANAN', '=', $idPesanan)->first();
+
+        $subtotal = Pesanan::join('detail_pesanan', 'detail_pesanan.ID_PESANAN', '=', 'pesanan.ID_PESANAN')
+            ->where('pesanan.ID_PESANAN', '=', $idPesanan)
+            ->sum('detail_pesanan.SUBTOTAL_ITEM_PESANAN');
+
+        $service = $subtotal * 5/100;
+
+        $tax = $subtotal * 10/100;
+
+        $total = $subtotal + $service + $tax;
+
+        $totalQty = DB::table('detail_pesanan')
+            ->where('ID_PESANAN', '=', $idPesanan)
+            ->sum('JUMLAH_ITEM_PESANAN');
+
+        $totalItem = DB::table('detail_pesanan')
+        ->where('ID_PESANAN', '=', $idPesanan)
+        ->count();
+
+        $pesanan->SUBTOTAL_PESANAN = $subtotal;
+        $pesanan->SERVICE_PESANAN = $service;
+        $pesanan->TAX_PESANAN = $tax;
+        $pesanan->TOTAL_PESANAN = $total;
+        $pesanan->TOTAL_JUMLAH_PESANAN = $totalQty;
+        $pesanan->TOTAL_ITEM_PESANAN = $totalItem;
+
+
+        if($pesanan->save()) {
+            return response([
+                'message' => 'Update Total Pesanan Success',
+                'data' => $pesanan
+            ], 200);
+        }
+
+        return response([
+            'message' => 'Update Total Pesanan Failed',
+            'data' => $totalQty
+        ], 202);
     }
 }

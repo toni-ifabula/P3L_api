@@ -8,6 +8,8 @@ class DetailPesanan extends Model
 {
     protected $table = 'detail_pesanan';
 
+    protected $primaryKey = 'ID_DETAIL_PESANAN';
+
     public $timestamps = false;
 
     protected $fillable = [

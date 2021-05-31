@@ -139,6 +139,8 @@ class ReservasiController extends Controller
     }
 
     public function getReservasiRelation($id) {
+        $reservasi = Reservasi::find($id);
+
         $customer = Reservasi::join('customer', 'reservasi.ID_CUSTOMER', '=', 'customer.ID_CUSTOMER')
                 ->select('customer.*')
                 ->where('reservasi.ID_RESERVASI', '=', $id)
@@ -163,6 +165,7 @@ class ReservasiController extends Controller
 
         return response([
             'message' => 'Data Found',
+            'dataReservasi' => $reservasi,
             'dataCustomer' => $customer,
             'dataMeja' => $meja
         ], 200);

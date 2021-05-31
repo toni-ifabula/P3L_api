@@ -129,4 +129,31 @@ class DetailPesananController extends Controller
             'data' => null
         ], 400);
     }
+
+    //nambah jumlah pesanan
+    // public function nambahJumlahPesanan(Request $request, $idDetailYangNambah) {
+    //     $detailPesanan = DetailPesanan::where('ID_DETAIL_PESANAN', '=', $idDetailYangNambah)->first();
+    //     if(is_null($detailPesanan)){
+    //         return response([
+    //             'message' => 'Detail Pesanan Not Found',
+    //             'data' => null
+    //         ], 404);
+    //     }
+
+    //     $data = $request->all();
+    //     $detailPesanan->JUMLAH_ITEM_PESANAN = $data['JUMLAH_ITEM_PESANAN'];
+    //     $detailPesanan->SUBTOTAL_ITEM_PESANAN = $data['SUBTOTAL_ITEM_PESANAN'];
+
+    //     if($detailPesanan->save()){
+    //         return response([
+    //             'message' => 'Update Jumlah Detail Pesanan Success',
+    //             'data' => $detailPesanan,
+    //         ], 200);
+    //     }
+        
+    //     return response([
+    //         'message' => 'Update Jumlah Detail Pesanan Failed',
+    //         'data' => null
+    //     ], 400);
+    // }
 }

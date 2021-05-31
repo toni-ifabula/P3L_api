@@ -68,15 +68,12 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::put('menu/{id}', 'Api\MenuController@update');
     Route::delete('menu/{id}', 'Api\MenuController@destroy');
 
-    
     Route::put('pesanan/{id}', 'Api\PesananController@update');
     Route::delete('pesanan/{id}', 'Api\PesananController@destroy');
     Route::put('statusPesanan/{id}', 'Api\PesananController@statusDisajikan');
     Route::get('pesananByMeja/{id}', 'Api\PesananController@getInfoByNomorMeja');
     Route::get('mejaBelumBayar', 'Api\PesananController@getMejaBelumBayar');
 
-    Route::get('detailPesanan', 'Api\DetailPesananController@index');
-    Route::post('detailPesanan', 'Api\DetailPesananController@store');
     Route::put('detailPesanan/{id}', 'Api\DetailPesananController@update');
     Route::delete('detailPesanan/{id}', 'Api\DetailPesananController@destroy');
 
@@ -95,3 +92,8 @@ Route::get('pesanan', 'Api\PesananController@indexCustom');
 Route::post('pesanan', 'Api\PesananController@store');
 Route::get('checkPesanan/{idReservasi}', 'Api\PesananController@checkPesananByReservasi');
 Route::get('detailPesanan/{id}', 'Api\DetailPesananController@showByIdPesanan');
+Route::post('detailPesanan', 'Api\DetailPesananController@store');
+Route::get('totalPesanan/{id}', 'Api\PesananController@updatePesananTotal');
+Route::get('detailPesanan', 'Api\DetailPesananController@index');
+// Route::post('jumlahDetailPesanan/{id}', 'Api\DetailPesananController@nambahJumlahPesanan');
+Route::put('detailPesanan/{id}', 'Api\DetailPesananController@update');
