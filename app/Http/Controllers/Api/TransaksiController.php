@@ -33,11 +33,16 @@ class TransaksiController extends Controller
             ->join('karyawan', 'pesanan.ID_KARYAWAN', '=', 'karyawan.ID_KARYAWAN')
             ->select('karyawan.NAMA_KARYAWAN', 'pesanan.TOTAL_PESANAN', 'transaksi.*')
             ->get();
+        
+        $namaCashier = Transaksi::join('karyawan', 'transaksi.ID_KARYAWAN', '=', 'karyawan.ID_KARYAWAN')
+            ->select('karyawan.NAMA_KARYAWAN')
+            ->get();
 
         if(count($transaksi) > 0){
             return response([
                 'message' => 'Retrieve All Success',
-                'data' => $transaksi
+                'dataTransaksi' => $transaksi,
+                'namaCashier' => $namaCashier
             ], 200);
         }
 
@@ -157,5 +162,21 @@ class TransaksiController extends Controller
             'message' => 'Delete Transaksi Failed',
             'data' => null
         ], 400);
+    }
+
+    public function getStrukInfo($idTransaksi) {
+        $transaksi = Transaksi::join('pesanan', 'transaksi.ID_PESANAN', '=', 'pesanan.ID_PESANAN')
+            ->join('karyawan', 'pesanan.ID_KARYAWAN', '=', 'karyawan.ID_KARYAWAN')
+            ->join('reservasi', 'pesanan.ID_RESERVASI', '=', 'reservasi.ID_RESERVASI')
+            ->join('meja', 'reservasi.ID_MEJA', '=', 'meja.ID_MEJA')
+            ->join('customer', 'reservasi.ID_CUSTOMER', '=', 'customer.ID_CUSTOMER')
+            ->select('*')
+            ->where('transaksi.ID_TRANSAKSI', '=', $idTransaksi)
+            ->first();
+
+        return response([
+            'message' => 'Get Struk Info Success',
+            'data' => $transaksi
+        ], 200);
     }
 }

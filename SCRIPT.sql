@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 21, 2021 at 12:42 PM
+-- Generation Time: May 31, 2021 at 06:40 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.9
 
@@ -50,6 +50,7 @@ INSERT INTO `customer` (`ID_CUSTOMER`, `NAMA_CUSTOMER`, `EMAIL_CUSTOMER`, `TELEP
 --
 
 CREATE TABLE `detail_pesanan` (
+  `ID_DETAIL_PESANAN` int(255) NOT NULL,
   `ID_PESANAN` int(255) NOT NULL,
   `ID_MENU` int(255) NOT NULL,
   `JUMLAH_ITEM_PESANAN` int(255) DEFAULT NULL,
@@ -60,8 +61,14 @@ CREATE TABLE `detail_pesanan` (
 -- Dumping data for table `detail_pesanan`
 --
 
-INSERT INTO `detail_pesanan` (`ID_PESANAN`, `ID_MENU`, `JUMLAH_ITEM_PESANAN`, `SUBTOTAL_ITEM_PESANAN`) VALUES
-(1, 10, 5, 1000);
+INSERT INTO `detail_pesanan` (`ID_DETAIL_PESANAN`, `ID_PESANAN`, `ID_MENU`, `JUMLAH_ITEM_PESANAN`, `SUBTOTAL_ITEM_PESANAN`) VALUES
+(2, 1, 10, 4, 60000),
+(3, 2, 10, 5, 100000),
+(4, 2, 14, 3, 12000),
+(8, 2, 16, 2, 0),
+(10, 1, 15, 1, 5000),
+(11, 1, 11, 2, 30000),
+(12, 11, 19, 2, 16000);
 
 -- --------------------------------------------------------
 
@@ -83,7 +90,7 @@ CREATE TABLE `detail_stok_bahan` (
 --
 
 INSERT INTO `detail_stok_bahan` (`ID_DETAIL_STOK`, `ID_STOK`, `TANGGAL_MASUK_STOK`, `INCOMING_STOK`, `REMAINING_STOK`, `WASTE_STOK`) VALUES
-(9, 7, '2021-05-01', 100, 100, 30),
+(9, 7, '2021-05-01', 100, 55, 30),
 (10, 7, '2021-05-02', 20, 20, 5),
 (11, 7, '2021-05-20', 5001, 5001, 202),
 (12, 7, '2021-05-19', 4444444, 33333, 2222222),
@@ -194,8 +201,7 @@ INSERT INTO `menu` (`ID_MENU`, `ID_STOK`, `KATEGORI_MENU`, `NAMA_MENU`, `DESKRIP
 (16, 13, 'Makanan Side Dish', 'Saos', 'Saos signature yang melengkapi kelezatan makanan', 'Mini Bowl', 0, 'https://food.fnr.sndimg.com/content/dam/images/food/fullset/2011/7/26/0/NY0100_neelys-bbq-sauce_s4x3.jpg.rend.hgtvcom.616.462.suffix/1371597847826.jpeg'),
 (17, 14, 'Minuman', 'Ocha', 'Minuman teh hijau segar', 'Glass', 3000, 'http://3.bp.blogspot.com/-pr5uKxZ-qeg/VOWTaivB92I/AAAAAAAABVg/wk2SG2PoiXA/s1600/20071219_281056.jpg'),
 (18, 15, 'Minuman', 'Mineral Water 600 ml', 'Minuman air segar dari pegunungan ternama', 'Bottle', 6000, 'https://d2qjkwm11akmwu.cloudfront.net/products/630433_29-10-2019_13-1-49.jpg'),
-(19, 16, 'Minuman', 'Orange Juice', 'Minuman jus jeruk yang didapat dari buah asli', 'Glass', 8000, 'https://i0.wp.com/images-prod.healthline.com/hlcmsresource/images/AN_images/orange-juice-1296x728-feature.jpg?w=1155&h=1528'),
-(25, 15, 'Minuman', 'asd', 'asd', 'asd', 1, 'asd');
+(19, 16, 'Minuman', 'Orange Juice', 'Minuman jus jeruk yang didapat dari buah asli', 'Glass', 8000, 'https://i0.wp.com/images-prod.healthline.com/hlcmsresource/images/AN_images/orange-juice-1296x728-feature.jpg?w=1155&h=1528');
 
 -- --------------------------------------------------------
 
@@ -425,7 +431,9 @@ CREATE TABLE `pesanan` (
 --
 
 INSERT INTO `pesanan` (`ID_PESANAN`, `ID_KARYAWAN`, `ID_RESERVASI`, `STATUS_PESANAN`, `SUBTOTAL_PESANAN`, `SERVICE_PESANAN`, `TAX_PESANAN`, `TOTAL_PESANAN`, `TOTAL_JUMLAH_PESANAN`, `TOTAL_ITEM_PESANAN`, `STATUS_LUNAS_PESANAN`) VALUES
-(1, 11, 41, 'Disajikan', 1000, 1000, 1000, 1000, 10, 5, 'Belum');
+(1, 11, 41, 'Disajikan', 95000, 4750, 9500, 109250, 7, 3, 'Belum'),
+(2, 9, 44, 'Dimasak', 112000, 5600, 11200, 128800, 10, 3, 'Lunas'),
+(11, 9, 42, 'Dimasak', 16000, 800, 1600, 18400, 2, 1, 'Belum');
 
 -- --------------------------------------------------------
 
@@ -482,6 +490,7 @@ CREATE TABLE `stok_bahan` (
   `ID_STOK` int(255) NOT NULL,
   `NAMA_STOK` varchar(255) DEFAULT NULL,
   `UNIT_STOK` varchar(255) DEFAULT NULL,
+  `SERVING_STOK` int(255) DEFAULT NULL,
   `HARGA_STOK` int(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -489,19 +498,19 @@ CREATE TABLE `stok_bahan` (
 -- Dumping data for table `stok_bahan`
 --
 
-INSERT INTO `stok_bahan` (`ID_STOK`, `NAMA_STOK`, `UNIT_STOK`, `HARGA_STOK`) VALUES
-(7, 'Beef Short Plate', 'gram', 1000),
-(8, 'Chicken Slice', 'gram', 1000),
-(9, 'Squid', 'gram', 1000),
-(10, 'Tenderloin', 'gram', 1000),
-(11, 'Rice', 'gram', 1000),
-(12, 'Kimchi', 'gram', 1000),
-(13, 'Saos', 'ml', 1000),
-(14, 'Ocha', 'ml', 1000),
-(15, 'Mineral Water', 'ml', 1000),
-(16, 'Orange Juice', 'ml', 1000),
-(17, 'kerbau', 'ml', 30000),
-(18, 'sapi daging', 'ml', 4444);
+INSERT INTO `stok_bahan` (`ID_STOK`, `NAMA_STOK`, `UNIT_STOK`, `SERVING_STOK`, `HARGA_STOK`) VALUES
+(7, 'Beef Short Plate', 'gram', 50, 1000),
+(8, 'Chicken Slice', 'gram', 50, 1000),
+(9, 'Squid', 'gram', 25, 1000),
+(10, 'Tenderloin', 'gram', 50, 1000),
+(11, 'Rice', 'gram', 125, 1000),
+(12, 'Kimchi', 'gram', 15, 1000),
+(13, 'Saos', 'ml', 20, 1000),
+(14, 'Ocha', 'ml', 200, 1000),
+(15, 'Mineral Water', 'ml', 600, 1000),
+(16, 'Orange Juice', 'ml', 200, 1000),
+(17, 'kerbau', 'ml', 99, 30000),
+(18, 'sapi daging', 'ml', 88, 4444);
 
 -- --------------------------------------------------------
 
@@ -527,7 +536,7 @@ CREATE TABLE `transaksi` (
 --
 
 INSERT INTO `transaksi` (`ID_TRANSAKSI`, `ID_PESANAN`, `ID_KARYAWAN`, `NOMOR_TRANSAKSI`, `TANGGAL_TRANSAKSI`, `WAKTU_TRANSAKSI`, `JENIS_PEMBAYARAN_TRANSAKSI`, `NOMOR_KARTU_TRANSAKSI`, `NAMA_CREDIT_TRANSAKSI`, `KODE_VERIFIKASI_TRANSAKSI`) VALUES
-(1, 1, 11, '222AAA22', '2002-02-02', '22:22', 'CREDIT', 1245432341, 'ASD', '23SAD23');
+(1, 1, 14, '222AAA22', '2002-02-02', '22:22', 'CREDIT', 1245432341, 'ASD', '23SAD23');
 
 -- --------------------------------------------------------
 
@@ -561,6 +570,7 @@ ALTER TABLE `customer`
 -- Indexes for table `detail_pesanan`
 --
 ALTER TABLE `detail_pesanan`
+  ADD PRIMARY KEY (`ID_DETAIL_PESANAN`),
   ADD KEY `FK_DETAIL_P_RELATIONS_PESANAN` (`ID_PESANAN`),
   ADD KEY `FK_DETAIL_P_RELATIONS_MENU` (`ID_MENU`);
 
@@ -597,8 +607,8 @@ ALTER TABLE `meja`
 --
 ALTER TABLE `menu`
   ADD PRIMARY KEY (`ID_MENU`),
-  ADD UNIQUE KEY `NAMA_MENU` (`NAMA_MENU`),
-  ADD KEY `FK_MENU_RELATIONS_STOK_BAH` (`ID_STOK`);
+  ADD UNIQUE KEY `ID_STOK_UNIQUE` (`ID_STOK`),
+  ADD UNIQUE KEY `NAMA_MENU` (`NAMA_MENU`);
 
 --
 -- Indexes for table `migrations`
@@ -700,6 +710,12 @@ ALTER TABLE `customer`
   MODIFY `ID_CUSTOMER` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
+-- AUTO_INCREMENT for table `detail_pesanan`
+--
+ALTER TABLE `detail_pesanan`
+  MODIFY `ID_DETAIL_PESANAN` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
 -- AUTO_INCREMENT for table `detail_stok_bahan`
 --
 ALTER TABLE `detail_stok_bahan`
@@ -727,7 +743,7 @@ ALTER TABLE `meja`
 -- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `ID_MENU` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `ID_MENU` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -751,7 +767,7 @@ ALTER TABLE `oauth_personal_access_clients`
 -- AUTO_INCREMENT for table `pesanan`
 --
 ALTER TABLE `pesanan`
-  MODIFY `ID_PESANAN` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID_PESANAN` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `reservasi`
