@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Validator;
 use App\Transaksi;
+use Carbon\Carbon;
 
 class TransaksiController extends Controller
 {
@@ -58,8 +59,6 @@ class TransaksiController extends Controller
         $validate = Validator::make($storeData, [
             'ID_PESANAN' => 'required|numeric',
             'ID_KARYAWAN' => 'required|numeric',
-            'NOMOR_TRANSAKSI' => 'required',
-            'TANGGAL_TRANSAKSI' => 'required|date_format:Y-m-d',
             'WAKTU_TRANSAKSI' => 'required',
             'JENIS_PEMBAYARAN_TRANSAKSI' => 'required',
             'NOMOR_KARTU_TRANSAKSI' => 'nullable|numeric',
@@ -71,8 +70,19 @@ class TransaksiController extends Controller
             return response(['message' => $validate->errors()], 400);
         
         $transaksi = Transaksi::create($storeData);
+
+        $tanggal = Carbon::now('Asia/Jakarta')->format('dmy');
+        $today = Carbon::now('Asia/Jakarta')->format('Y-m-d');
+        $temp = Transaksi::where('TANGGAL_TRANSAKSI', '=', $today)->get();
+        $nomorUrut = $temp->count() + 1;
+
+        $transaksi->TANGGAL_TRANSAKSI = $today;
+        $transaksi->NOMOR_TRANSAKSI = "AKB-".$tanggal."-".$nomorUrut;
+
+        $transaksi->save();
+
         return response([
-            'message' => 'Create Transaksi Success',
+            'message' => 'Pembayaran Success',
             'data' => $transaksi,
         ], 200);
     }

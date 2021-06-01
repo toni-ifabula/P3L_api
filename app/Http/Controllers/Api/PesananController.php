@@ -178,6 +178,32 @@ class PesananController extends Controller
         ], 400);
     }
 
+    // UPDATE STATUS LUNAS
+    public function statusLunas($id){
+        $pesanan = Pesanan::find($id);
+
+        if(is_null($pesanan)){
+            return response([
+                'message' => 'Pesanan Not Found',
+                'data' => null
+            ], 404);
+        }
+
+        $pesanan->STATUS_LUNAS_PESANAN = 'Lunas';
+
+        if($pesanan->save()){
+            return response([
+                'message' => 'Ubah Status Lunas Success',
+                'data' => $pesanan
+            ], 200);
+        }
+
+        return response([
+            'message' => 'Ubah Status Lunas Failed',
+            'data' => null
+        ], 400);
+    }
+
     public function getMejaBelumBayar() {
         $pesanan = Pesanan::join('reservasi', 'pesanan.ID_RESERVASI', '=', 'reservasi.ID_RESERVASI')
                         ->join('meja', 'reservasi.ID_MEJA', '=', 'meja.ID_MEJA')
@@ -199,23 +225,24 @@ class PesananController extends Controller
     }
 
     public function getInfoByNomorMeja($nomor) {
-        $pesanan = Pesanan::join('reservasi', 'pesanan.ID_RESERVASI', '=', 'reservasi.ID_RESERVASI')
+        $data = Pesanan::join('reservasi', 'pesanan.ID_RESERVASI', '=', 'reservasi.ID_RESERVASI')
                         ->join('meja', 'reservasi.ID_MEJA', '=', 'meja.ID_MEJA')
-                        ->select('pesanan.*')
+                        ->join('customer', 'reservasi.ID_CUSTOMER', 'customer.ID_CUSTOMER')
+                        ->select('*')
                         ->where('meja.NOMOR_MEJA', '=', $nomor)
                         ->where('pesanan.STATUS_LUNAS_PESANAN', '=', 'Belum')
                         ->first();
         
-        if(is_null($pesanan)){
+        if(is_null($data)){
             return response([
-                'message' => 'Data Pesanan Not Found',
+                'message' => 'Data Not Found',
                 'data' => null
             ], 404);
         }
 
         return response([
             'message' => 'Data Found',
-            'data' => $pesanan,
+            'data' => $data,
         ], 200);
     }
 
