@@ -85,6 +85,8 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::put('transaksi/{id}', 'Api\TransaksiController@update');
     Route::delete('transaksi/{id}', 'Api\TransaksiController@destroy');
     Route::get('transaksiStruk/{idTransaksi}', 'Api\TransaksiController@getStrukInfo');
+
+    Route::get('laporanPendapatanBulanan/{tahun}', 'Api\LaporanController@laporanPendapatanBulanan');
 });
 
 Route::get('menuIndex', 'Api\MenuController@index');
