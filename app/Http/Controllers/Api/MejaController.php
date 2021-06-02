@@ -118,4 +118,30 @@ class MejaController extends Controller
             'data' => null
         ], 400);
     }
+
+    // SET STATUS KOSONG
+    public function setStatusKosong($id){
+        $meja = Meja::find($id);
+
+        if(is_null($meja)){
+            return response([
+                'message' => 'Meja Not Found',
+                'data' => null
+            ], 404);
+        }
+
+        $meja->STATUS_MEJA = 'Kosong';
+
+        if($meja->save()){
+            return response([
+                'message' => 'Ubah Status Kosong Success',
+                'data' => $meja
+            ], 200);
+        }
+
+        return response([
+            'message' => 'Ubah Status Kosong Failed',
+            'data' => null
+        ], 400);
+    }
 }

@@ -14,6 +14,7 @@ class StokBahan extends Model
 
     protected $fillable = [
         'NAMA_STOK',
+        'SERVING_STOK',
         'UNIT_STOK',
         'HARGA_STOK',
     ];

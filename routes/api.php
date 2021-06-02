@@ -38,6 +38,7 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::post('meja', 'Api\MejaController@store');
     Route::put('meja/{id}', 'Api\MejaController@update');
     Route::delete('meja/{id}', 'Api\MejaController@destroy');
+    Route::get('mejaKosong/{idMeja}', 'Api\MejaController@setStatusKosong');
 
     Route::get('customer', 'Api\CustomerController@index');
     Route::get('IDCustomer/{nama}', 'Api\CustomerController@getIDbyNama');
@@ -62,7 +63,7 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::post('detailStok', 'Api\DetailStokController@store');
     Route::put('detailStok/{id}', 'Api\DetailStokController@update');
     Route::delete('detailStok/{id}', 'Api\DetailStokController@destroy');
-    Route::post('detailPesananRemaining', 'Api\DetailStokController@calcRemaining');
+    Route::post('detailPesananAutoCalc', 'Api\DetailStokController@calcRemainingWaste');
     
     Route::post('menu', 'Api\MenuController@store');
     Route::put('menu/{id}', 'Api\MenuController@update');

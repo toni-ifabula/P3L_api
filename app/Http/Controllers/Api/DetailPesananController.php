@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Validator;
 use App\DetailPesanan;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class DetailPesananController extends Controller
 {
@@ -59,11 +61,34 @@ class DetailPesananController extends Controller
 
         if($validate->fails())
             return response(['message' => $validate->errors()], 400);
+
+        $serving = DB::table('stok_bahan')->join('menu', 'menu.ID_STOK', '=', 'stok_bahan.ID_STOK')
+            ->where('ID_MENU', '=', $storeData['ID_MENU'])
+            ->select('SERVING_STOK')
+            ->first();
+
+        $today = Carbon::now('Asia/Jakarta')->format('Y-m-d');
+
+        $available = DB::table('stok_bahan')->join('menu', 'menu.ID_STOK', '=', 'stok_bahan.ID_STOK')
+            ->join('detail_stok_bahan', 'detail_stok_bahan.ID_STOK', '=', 'stok_bahan.ID_STOK')
+            ->where('ID_MENU', '=', $storeData['ID_MENU'])
+            ->where('TANGGAL_MASUK_STOK', '=', $today)
+            ->select('REMAINING_STOK')
+            ->first();
+
+        if($available->REMAINING_STOK < $serving->SERVING_STOK) { // ON TODAY
+            return response([
+                'message' => 'Stok Bahan Habis',
+                'remaining' => $available->REMAINING_STOK,
+                'serving' => $serving->SERVING_STOK
+            ], 200);
+        }
         
         $detailPesanan = DetailPesanan::create($storeData);
+
         return response([
             'message' => 'Create Detail Pesanan Success',
-            'data' => $detailPesanan,
+            'data' => $storeData,
         ], 200);
     }
 
@@ -87,6 +112,28 @@ class DetailPesananController extends Controller
 
         if($validate->fails())
             return response(['message' => $validate->errors()], 400);
+
+            $serving = DB::table('stok_bahan')->join('menu', 'menu.ID_STOK', '=', 'stok_bahan.ID_STOK')
+            ->where('ID_MENU', '=', $updateData['ID_MENU'])
+            ->select('SERVING_STOK')
+            ->first();
+
+        $today = Carbon::now('Asia/Jakarta')->format('Y-m-d');
+
+        $available = DB::table('stok_bahan')->join('menu', 'menu.ID_STOK', '=', 'stok_bahan.ID_STOK')
+            ->join('detail_stok_bahan', 'detail_stok_bahan.ID_STOK', '=', 'stok_bahan.ID_STOK')
+            ->where('ID_MENU', '=', $updateData['ID_MENU'])
+            ->where('TANGGAL_MASUK_STOK', '=', $today)
+            ->select('REMAINING_STOK')
+            ->first();
+
+        if($available->REMAINING_STOK < $serving->SERVING_STOK) { // ON TODAY
+            return response([
+                'message' => 'Stok Bahan Habis',
+                'remaining' => $available->REMAINING_STOK,
+                'serving' => $serving->SERVING_STOK
+            ], 200);
+        }
         
         $detailPesanan->ID_PESANAN = $updateData['ID_PESANAN'];
         $detailPesanan->ID_MENU = $updateData['ID_MENU'];
