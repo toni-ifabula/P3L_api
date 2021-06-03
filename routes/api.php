@@ -86,7 +86,13 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::delete('transaksi/{id}', 'Api\TransaksiController@destroy');
     Route::get('transaksiStruk/{idTransaksi}', 'Api\TransaksiController@getStrukInfo');
 
+    Route::get('laporanStokPerBulan/{namaStok}/{tahun}/{bulan}', 'Api\LaporanController@laporanStokPerBulan');
     Route::get('laporanPendapatanBulanan/{tahun}', 'Api\LaporanController@laporanPendapatanBulanan');
+    Route::get('laporanPendapatanTahunan/{tahun1}/{tahun2}', 'Api\LaporanController@laporanPendapatanTahunan');
+    Route::get('laporanPengeluaranBulanan/{tahun}', 'Api\LaporanController@laporanPengeluaranBulanan');
+    Route::get('laporanPengeluaranTahunan/{tahun1}/{tahun2}', 'Api\LaporanController@laporanPengeluaranTahunan');
+    Route::get('laporanPenjualanPerBulan/{tahun}/{bulan}', 'Api\LaporanController@laporanPenjualanPerBulan');
+    Route::get('laporanPenjualanSetahun/{tahun}', 'Api\LaporanController@laporanPenjualanSetahun');
 });
 
 Route::get('menuIndex', 'Api\MenuController@index');
